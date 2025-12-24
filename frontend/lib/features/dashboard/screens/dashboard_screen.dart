@@ -1,0 +1,172 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_strings.dart';
+import '../../auth/providers/auth_provider.dart';
+import '../../auth/models/auth_state.dart';
+
+class DashboardScreen extends ConsumerWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+
+    return authState.maybeWhen(
+      authenticated: (user, tenant) => Scaffold(
+        appBar: AppBar(
+          title: Text(AppStrings.appName),
+          actions: [
+            PopupMenuButton(
+              icon: CircleAvatar(
+                backgroundColor: AppColors.primary,
+                child: Text(
+                  user.firstName[0].toUpperCase(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  enabled: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.fullName,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        user.email,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        tenant.name,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                const PopupMenuDivider(),
+                PopupMenuItem(
+                  child: const Row(
+                    children: [
+                      Icon(Icons.logout_rounded),
+                      SizedBox(width: 8),
+                      Text('Logout'),
+                    ],
+                  ),
+                  onTap: () {
+                    Future.delayed(Duration.zero, () {
+                      ref.read(authProvider.notifier).logout();
+                      context.go('/login');
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(width: 8),
+          ],
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.dashboard_rounded,
+                  size: 80,
+                  color: AppColors.primary.withOpacity(0.5),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'Welcome to ${AppStrings.appName}!',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Dashboard coming soon...',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        _InfoRow(
+                          label: 'User',
+                          value: user.fullName,
+                        ),
+                        const Divider(),
+                        _InfoRow(
+                          label: 'Email',
+                          value: user.email,
+                        ),
+                        const Divider(),
+                        _InfoRow(
+                          label: 'Tenant',
+                          value: tenant.name,
+                        ),
+                        const Divider(),
+                        _InfoRow(
+                          label: 'Role',
+                          value: user.role,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      orElse: () => const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _InfoRow({
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+        ),
+        Text(
+          value,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+      ],
+    );
+  }
+}
