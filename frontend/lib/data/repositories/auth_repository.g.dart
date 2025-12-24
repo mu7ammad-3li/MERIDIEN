@@ -48,7 +48,7 @@ class _AuthRepository implements AuthRepository {
     try {
       _value = AuthResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -81,7 +81,7 @@ class _AuthRepository implements AuthRepository {
     try {
       _value = AuthResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -114,7 +114,7 @@ class _AuthRepository implements AuthRepository {
     try {
       _value = UserModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;

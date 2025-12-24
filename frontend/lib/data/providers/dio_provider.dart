@@ -52,6 +52,7 @@ final dioProvider = Provider<Dio>((ref) {
       error: true,
       compact: true,
       maxWidth: 90,
+      logPrint: (object) => print(object),
     ),
   );
 

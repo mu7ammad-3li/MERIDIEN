@@ -69,7 +69,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       );
     });
 
-    final isLoading = authState is _Loading;
+    final isLoading = authState.maybeWhen(
+      loading: () => true,
+      orElse: () => false,
+    );
 
     return Scaffold(
       body: SafeArea(

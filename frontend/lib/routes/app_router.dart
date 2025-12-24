@@ -6,8 +6,10 @@ import '../features/auth/screens/register_screen.dart';
 import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/customers/screens/customer_list_screen.dart';
 import '../features/products/screens/product_list_screen.dart';
+import '../features/orders/screens/order_list_screen.dart';
+import '../features/orders/screens/order_detail_screen.dart';
+import '../features/orders/screens/create_order_screen.dart';
 import '../features/auth/providers/auth_provider.dart';
-import '../features/auth/models/auth_state.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
@@ -60,6 +62,24 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/products',
         name: 'products',
         builder: (context, state) => const ProductListScreen(),
+      ),
+      GoRoute(
+        path: '/orders',
+        name: 'orders',
+        builder: (context, state) => const OrderListScreen(),
+      ),
+      GoRoute(
+        path: '/orders/new',
+        name: 'create-order',
+        builder: (context, state) => const CreateOrderScreen(),
+      ),
+      GoRoute(
+        path: '/orders/:id',
+        name: 'order-detail',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return OrderDetailScreen(orderId: id);
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

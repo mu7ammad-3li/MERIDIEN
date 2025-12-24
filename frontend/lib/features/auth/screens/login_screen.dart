@@ -60,7 +60,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
     });
 
-    final isLoading = authState is _Loading;
+    final isLoading = authState.maybeWhen(
+      loading: () => true,
+      orElse: () => false,
+    );
 
     return Scaffold(
       body: SafeArea(

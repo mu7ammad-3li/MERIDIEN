@@ -65,7 +65,7 @@ class _ProductRepository implements ProductRepository {
           .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -98,7 +98,7 @@ class _ProductRepository implements ProductRepository {
     try {
       _value = ProductModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -131,7 +131,7 @@ class _ProductRepository implements ProductRepository {
     try {
       _value = ProductModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -167,7 +167,7 @@ class _ProductRepository implements ProductRepository {
     try {
       _value = ProductModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;

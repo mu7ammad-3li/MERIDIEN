@@ -63,7 +63,7 @@ class _CustomerRepository implements CustomerRepository {
           .map((dynamic i) => CustomerModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -96,7 +96,7 @@ class _CustomerRepository implements CustomerRepository {
     try {
       _value = CustomerModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -129,7 +129,7 @@ class _CustomerRepository implements CustomerRepository {
     try {
       _value = CustomerModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
@@ -165,7 +165,7 @@ class _CustomerRepository implements CustomerRepository {
     try {
       _value = CustomerModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, null);
       rethrow;
     }
     return _value;
