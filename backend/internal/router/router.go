@@ -1,0 +1,117 @@
+package router
+
+import (
+	"net/http"
+	"time"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/mu7ammad-3li/MERIDIEN/backend/internal/handlers"
+	"github.com/mu7ammad-3li/MERIDIEN/backend/internal/middleware"
+)
+
+// Setup configures and returns the router
+func Setup(debug bool, authHandler *handlers.AuthHandler, customerHandler *handlers.CustomerHandler, productHandler *handlers.ProductHandler, orderHandler *handlers.OrderHandler, authMiddleware *middleware.AuthMiddleware) *gin.Engine {
+	// Set Gin mode
+	if !debug {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	// Create router
+	router := gin.Default()
+
+	// Configure CORS
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:8080"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
+	// Health check endpoint
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  "healthy",
+			"service": "MERIDIEN API",
+			"time":    time.Now().UTC(),
+		})
+	})
+
+	// API v1 group
+	v1 := router.Group("/api/v1")
+	{
+		// Public routes
+		v1.GET("/ping", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{
+				"message": "pong",
+			})
+		})
+
+		// Auth routes (public)
+		auth := v1.Group("/auth")
+		{
+			auth.POST("/register", authHandler.Register)
+			auth.POST("/login", authHandler.Login)
+			auth.POST("/refresh", authHandler.RefreshToken)
+		}
+
+		// Protected auth routes
+		authProtected := v1.Group("/auth")
+		authProtected.Use(authMiddleware.RequireAuth())
+		{
+			authProtected.GET("/me", authHandler.GetCurrentUser)
+			authProtected.POST("/logout", authHandler.Logout)
+		}
+
+		// Protected routes (require authentication)
+		protected := v1.Group("")
+		protected.Use(authMiddleware.RequireAuth())
+		{
+			// Customer routes
+			customers := protected.Group("/customers")
+			{
+				customers.POST("", customerHandler.Create)
+				customers.GET("", customerHandler.List)
+				customers.GET("/:id", customerHandler.GetByID)
+				customers.PUT("/:id", customerHandler.Update)
+				customers.DELETE("/:id", customerHandler.Delete)
+			}
+
+			// Product routes
+			products := protected.Group("/products")
+			{
+				products.POST("", productHandler.Create)
+				products.GET("", productHandler.List)
+				products.GET("/:id", productHandler.GetByID)
+				products.PUT("/:id", productHandler.Update)
+				products.DELETE("/:id", productHandler.Delete)
+			}
+
+			// Order routes
+			orders := protected.Group("/orders")
+			{
+				orders.POST("", orderHandler.Create)
+				orders.GET("", orderHandler.List)
+				orders.GET("/:id", orderHandler.GetByID)
+				orders.PUT("/:id", orderHandler.Update)
+				orders.DELETE("/:id", orderHandler.Delete)
+
+				// Order status transitions
+				orders.POST("/:id/confirm", orderHandler.Confirm)
+				orders.POST("/:id/ship", orderHandler.Ship)
+				orders.POST("/:id/deliver", orderHandler.Deliver)
+				orders.POST("/:id/cancel", orderHandler.Cancel)
+
+				// Order payments
+				orders.POST("/:id/payments", orderHandler.RecordPayment)
+				orders.GET("/:id/payments", orderHandler.ListPayments)
+			}
+
+			// Future: Report routes
+		}
+	}
+
+	return router
+}
