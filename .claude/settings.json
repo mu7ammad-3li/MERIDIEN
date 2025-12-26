@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd backend && ./scripts/*)",
+      "Bash(cd frontend && flutter *)",
+      "Bash(curl http://localhost:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(go build:*)",
+      "Bash(go run:*)",
+      "Bash(go test:*)",
+      "Read(docs/**)",
+      "Read(backend/**)",
+      "Read(frontend/**)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(backend/configs/.env)",
+      "Read(**/secrets/**)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(git push --force:*)"
+    ]
+  },
+  "env": {
+    "APP_ENV": "development",
+    "APP_PORT": "8080"
+  }
+}

@@ -179,3 +179,4 @@ dist/
 test-results/
 *.xml
 
+.claude/settings.local.json
