@@ -32,13 +32,7 @@ class ProductCard extends StatelessWidget {
               height: 120,
               width: double.infinity,
               color: AppColors.primary.withOpacity(0.05),
-              child: product.imageUrl != null
-                  ? Image.network(
-                      product.imageUrl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => _buildPlaceholder(),
-                    )
-                  : _buildPlaceholder(),
+              child: _buildPlaceholder(),
             ),
 
             // Product Info
@@ -74,7 +68,7 @@ class ProductCard extends StatelessWidget {
                       children: [
                         // Price
                         Text(
-                          '\$${product.unitPrice}',
+                          '\$${product.sellingPrice}',
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.bold,

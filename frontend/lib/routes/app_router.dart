@@ -5,11 +5,17 @@ import '../features/auth/screens/login_screen.dart';
 import '../features/auth/screens/register_screen.dart';
 import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/customers/screens/customer_list_screen.dart';
+import '../features/customers/screens/customer_detail_screen.dart';
+import '../features/customers/screens/customer_form_screen.dart';
 import '../features/products/screens/product_list_screen.dart';
+import '../features/products/screens/product_detail_screen.dart';
+import '../features/products/screens/product_form_screen.dart';
 import '../features/orders/screens/order_list_screen.dart';
 import '../features/orders/screens/order_detail_screen.dart';
 import '../features/orders/screens/create_order_screen.dart';
 import '../features/auth/providers/auth_provider.dart';
+import '../data/models/customer_model.dart';
+import '../data/models/product_model.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
@@ -59,9 +65,59 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const CustomerListScreen(),
       ),
       GoRoute(
+        path: '/customers/new',
+        name: 'create-customer',
+        builder: (context, state) => const CustomerFormScreen(),
+      ),
+      GoRoute(
+        path: '/customers/:id',
+        name: 'customer-detail',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return CustomerDetailScreen(customerId: id);
+        },
+      ),
+      GoRoute(
+        path: '/customers/:id/edit',
+        name: 'edit-customer',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          final customer = state.extra as CustomerModel?;
+          return CustomerFormScreen(
+            customerId: id,
+            customer: customer,
+          );
+        },
+      ),
+      GoRoute(
         path: '/products',
         name: 'products',
         builder: (context, state) => const ProductListScreen(),
+      ),
+      GoRoute(
+        path: '/products/new',
+        name: 'create-product',
+        builder: (context, state) => const ProductFormScreen(),
+      ),
+      GoRoute(
+        path: '/products/:id',
+        name: 'product-detail',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return ProductDetailScreen(productId: id);
+        },
+      ),
+      GoRoute(
+        path: '/products/:id/edit',
+        name: 'edit-product',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          final product = state.extra as ProductModel?;
+          return ProductFormScreen(
+            productId: id,
+            product: product,
+          );
+        },
       ),
       GoRoute(
         path: '/orders',
