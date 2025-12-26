@@ -22,7 +22,12 @@ func Setup(debug bool, authHandler *handlers.AuthHandler, customerHandler *handl
 
 	// Configure CORS
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:8080"},
+		AllowOriginFunc: func(origin string) bool {
+			// Allow all localhost origins for development
+			return origin == "http://localhost:3000" ||
+				origin == "http://localhost:8080" ||
+				len(origin) >= 16 && origin[:16] == "http://localhost"
+		},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
