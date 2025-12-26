@@ -20,7 +20,8 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) =>
@@ -29,7 +30,7 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) =>
@@ -38,7 +39,7 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -131,7 +132,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) {
@@ -143,7 +145,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) {
@@ -155,7 +157,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -251,7 +253,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) {
@@ -263,7 +266,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) {
@@ -275,7 +278,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -337,10 +340,10 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserModel user, TenantModel tenant});
+  $Res call({UserModel user, TenantModel? tenant});
 
   $UserModelCopyWith<$Res> get user;
-  $TenantModelCopyWith<$Res> get tenant;
+  $TenantModelCopyWith<$Res>? get tenant;
 }
 
 /// @nodoc
@@ -355,17 +358,17 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = null,
-    Object? tenant = null,
+    Object? tenant = freezed,
   }) {
     return _then(_$AuthenticatedImpl(
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
-      tenant: null == tenant
+      tenant: freezed == tenant
           ? _value.tenant
           : tenant // ignore: cast_nullable_to_non_nullable
-              as TenantModel,
+              as TenantModel?,
     ));
   }
 
@@ -379,8 +382,12 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $TenantModelCopyWith<$Res> get tenant {
-    return $TenantModelCopyWith<$Res>(_value.tenant, (value) {
+  $TenantModelCopyWith<$Res>? get tenant {
+    if (_value.tenant == null) {
+      return null;
+    }
+
+    return $TenantModelCopyWith<$Res>(_value.tenant!, (value) {
       return _then(_value.copyWith(tenant: value));
     });
   }
@@ -389,12 +396,12 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthenticatedImpl implements _Authenticated {
-  const _$AuthenticatedImpl({required this.user, required this.tenant});
+  const _$AuthenticatedImpl({required this.user, this.tenant});
 
   @override
   final UserModel user;
   @override
-  final TenantModel tenant;
+  final TenantModel? tenant;
 
   @override
   String toString() {
@@ -424,7 +431,8 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) {
@@ -436,7 +444,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) {
@@ -448,7 +456,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -503,10 +511,10 @@ class _$AuthenticatedImpl implements _Authenticated {
 abstract class _Authenticated implements AuthState {
   const factory _Authenticated(
       {required final UserModel user,
-      required final TenantModel tenant}) = _$AuthenticatedImpl;
+      final TenantModel? tenant}) = _$AuthenticatedImpl;
 
   UserModel get user;
-  TenantModel get tenant;
+  TenantModel? get tenant;
   @JsonKey(ignore: true)
   _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -552,7 +560,8 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) {
@@ -564,7 +573,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) {
@@ -576,7 +585,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -698,7 +707,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user, TenantModel tenant) authenticated,
+    required TResult Function(UserModel user, TenantModel? tenant)
+        authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(String message) error,
   }) {
@@ -710,7 +720,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult? Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(String message)? error,
   }) {
@@ -722,7 +732,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user, TenantModel tenant)? authenticated,
+    TResult Function(UserModel user, TenantModel? tenant)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(String message)? error,
     required TResult orElse(),

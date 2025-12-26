@@ -10,7 +10,7 @@ class AuthResponseModel with _$AuthResponseModel {
   const factory AuthResponseModel({
     required String token,
     required UserModel user,
-    required TenantModel tenant,
+    TenantModel? tenant,
   }) = _AuthResponseModel;
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>

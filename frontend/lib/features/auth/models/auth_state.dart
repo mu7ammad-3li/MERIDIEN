@@ -10,7 +10,7 @@ class AuthState with _$AuthState {
   const factory AuthState.loading() = _Loading;
   const factory AuthState.authenticated({
     required UserModel user,
-    required TenantModel tenant,
+    TenantModel? tenant,
   }) = _Authenticated;
   const factory AuthState.unauthenticated() = _Unauthenticated;
   const factory AuthState.error(String message) = _Error;

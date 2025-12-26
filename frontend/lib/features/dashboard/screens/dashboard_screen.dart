@@ -41,7 +41,7 @@ class DashboardScreen extends ConsumerWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       Text(
-                        tenant.name,
+                        tenant?.name ?? 'No Tenant',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppColors.textSecondary,
                             ),
@@ -145,7 +145,7 @@ class DashboardScreen extends ConsumerWidget {
                         const Divider(),
                         _InfoRow(
                           label: 'Tenant',
-                          value: tenant.name,
+                          value: tenant?.name ?? 'No Tenant',
                         ),
                         const Divider(),
                         _InfoRow(

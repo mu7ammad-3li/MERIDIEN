@@ -11,7 +11,9 @@ _$AuthResponseModelImpl _$$AuthResponseModelImplFromJson(
     _$AuthResponseModelImpl(
       token: json['token'] as String,
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
-      tenant: TenantModel.fromJson(json['tenant'] as Map<String, dynamic>),
+      tenant: json['tenant'] == null
+          ? null
+          : TenantModel.fromJson(json['tenant'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$AuthResponseModelImplToJson(

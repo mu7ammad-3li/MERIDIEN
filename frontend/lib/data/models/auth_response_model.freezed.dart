@@ -22,7 +22,7 @@ AuthResponseModel _$AuthResponseModelFromJson(Map<String, dynamic> json) {
 mixin _$AuthResponseModel {
   String get token => throw _privateConstructorUsedError;
   UserModel get user => throw _privateConstructorUsedError;
-  TenantModel get tenant => throw _privateConstructorUsedError;
+  TenantModel? get tenant => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +36,10 @@ abstract class $AuthResponseModelCopyWith<$Res> {
           AuthResponseModel value, $Res Function(AuthResponseModel) then) =
       _$AuthResponseModelCopyWithImpl<$Res, AuthResponseModel>;
   @useResult
-  $Res call({String token, UserModel user, TenantModel tenant});
+  $Res call({String token, UserModel user, TenantModel? tenant});
 
   $UserModelCopyWith<$Res> get user;
-  $TenantModelCopyWith<$Res> get tenant;
+  $TenantModelCopyWith<$Res>? get tenant;
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$AuthResponseModelCopyWithImpl<$Res, $Val extends AuthResponseModel>
   $Res call({
     Object? token = null,
     Object? user = null,
-    Object? tenant = null,
+    Object? tenant = freezed,
   }) {
     return _then(_value.copyWith(
       token: null == token
@@ -68,10 +68,10 @@ class _$AuthResponseModelCopyWithImpl<$Res, $Val extends AuthResponseModel>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
-      tenant: null == tenant
+      tenant: freezed == tenant
           ? _value.tenant
           : tenant // ignore: cast_nullable_to_non_nullable
-              as TenantModel,
+              as TenantModel?,
     ) as $Val);
   }
 
@@ -85,8 +85,12 @@ class _$AuthResponseModelCopyWithImpl<$Res, $Val extends AuthResponseModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $TenantModelCopyWith<$Res> get tenant {
-    return $TenantModelCopyWith<$Res>(_value.tenant, (value) {
+  $TenantModelCopyWith<$Res>? get tenant {
+    if (_value.tenant == null) {
+      return null;
+    }
+
+    return $TenantModelCopyWith<$Res>(_value.tenant!, (value) {
       return _then(_value.copyWith(tenant: value) as $Val);
     });
   }
@@ -100,12 +104,12 @@ abstract class _$$AuthResponseModelImplCopyWith<$Res>
       __$$AuthResponseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String token, UserModel user, TenantModel tenant});
+  $Res call({String token, UserModel user, TenantModel? tenant});
 
   @override
   $UserModelCopyWith<$Res> get user;
   @override
-  $TenantModelCopyWith<$Res> get tenant;
+  $TenantModelCopyWith<$Res>? get tenant;
 }
 
 /// @nodoc
@@ -121,7 +125,7 @@ class __$$AuthResponseModelImplCopyWithImpl<$Res>
   $Res call({
     Object? token = null,
     Object? user = null,
-    Object? tenant = null,
+    Object? tenant = freezed,
   }) {
     return _then(_$AuthResponseModelImpl(
       token: null == token
@@ -132,10 +136,10 @@ class __$$AuthResponseModelImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
-      tenant: null == tenant
+      tenant: freezed == tenant
           ? _value.tenant
           : tenant // ignore: cast_nullable_to_non_nullable
-              as TenantModel,
+              as TenantModel?,
     ));
   }
 }
@@ -144,7 +148,7 @@ class __$$AuthResponseModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AuthResponseModelImpl implements _AuthResponseModel {
   const _$AuthResponseModelImpl(
-      {required this.token, required this.user, required this.tenant});
+      {required this.token, required this.user, this.tenant});
 
   factory _$AuthResponseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthResponseModelImplFromJson(json);
@@ -154,7 +158,7 @@ class _$AuthResponseModelImpl implements _AuthResponseModel {
   @override
   final UserModel user;
   @override
-  final TenantModel tenant;
+  final TenantModel? tenant;
 
   @override
   String toString() {
@@ -194,7 +198,7 @@ abstract class _AuthResponseModel implements AuthResponseModel {
   const factory _AuthResponseModel(
       {required final String token,
       required final UserModel user,
-      required final TenantModel tenant}) = _$AuthResponseModelImpl;
+      final TenantModel? tenant}) = _$AuthResponseModelImpl;
 
   factory _AuthResponseModel.fromJson(Map<String, dynamic> json) =
       _$AuthResponseModelImpl.fromJson;
@@ -204,7 +208,7 @@ abstract class _AuthResponseModel implements AuthResponseModel {
   @override
   UserModel get user;
   @override
-  TenantModel get tenant;
+  TenantModel? get tenant;
   @override
   @JsonKey(ignore: true)
   _$$AuthResponseModelImplCopyWith<_$AuthResponseModelImpl> get copyWith =>
