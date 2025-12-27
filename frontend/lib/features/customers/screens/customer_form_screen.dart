@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../data/models/customer_model.dart';
 import '../../../data/repositories/customer_repository.dart';
 import '../../../data/providers/repository_providers.dart';
@@ -147,7 +148,7 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Customer created successfully')),
+            SnackBar(content: Text(context.loc.success)),
           );
           context.pop();
         }
@@ -210,7 +211,7 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Customer updated successfully')),
+            SnackBar(content: Text(context.loc.success)),
           );
           context.pop();
         }
@@ -237,7 +238,7 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditMode ? 'Edit Customer' : 'New Customer'),
+        title: Text(isEditMode ? context.loc.editCustomer : context.loc.newCustomer),
         actions: [
           if (_isLoading)
             const Center(
@@ -273,9 +274,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _firstNameController,
-              decoration: const InputDecoration(
-                labelText: 'First Name *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: '${context.loc.firstName} *',
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -288,9 +289,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _lastNameController,
-              decoration: const InputDecoration(
-                labelText: 'Last Name *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: '${context.loc.lastName} *',
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -303,9 +304,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email *',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: '${context.loc.email} *',
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
@@ -322,9 +323,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _phoneController,
-              decoration: const InputDecoration(
-                labelText: 'Phone',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.phone,
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.phone,
             ),
@@ -332,22 +333,22 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _companyController,
-              decoration: const InputDecoration(
-                labelText: 'Company',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.companyName,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
 
             DropdownButtonFormField<String>(
               value: _customerType,
-              decoration: const InputDecoration(
-                labelText: 'Customer Type',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.customerType,
+                border: const OutlineInputBorder(),
               ),
-              items: const [
-                DropdownMenuItem(value: 'individual', child: Text('Individual')),
-                DropdownMenuItem(value: 'business', child: Text('Business')),
+              items: [
+                DropdownMenuItem(value: 'individual', child: Text(context.loc.individual)),
+                DropdownMenuItem(value: 'business', child: Text(context.loc.business)),
               ],
               onChanged: (value) {
                 if (value != null) {
@@ -359,13 +360,13 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             DropdownButtonFormField<String>(
               value: _status,
-              decoration: const InputDecoration(
-                labelText: 'Status',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.status,
+                border: const OutlineInputBorder(),
               ),
-              items: const [
-                DropdownMenuItem(value: 'active', child: Text('Active')),
-                DropdownMenuItem(value: 'inactive', child: Text('Inactive')),
+              items: [
+                DropdownMenuItem(value: 'active', child: Text(context.loc.active)),
+                DropdownMenuItem(value: 'inactive', child: Text(context.loc.inactive)),
               ],
               onChanged: (value) {
                 if (value != null) {
@@ -386,9 +387,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _billingAddressController,
-              decoration: const InputDecoration(
-                labelText: 'Street Address',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.streetAddress,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 2,
             ),
@@ -399,9 +400,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _billingCityController,
-                    decoration: const InputDecoration(
-                      labelText: 'City',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.city,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -409,9 +410,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _billingStateController,
-                    decoration: const InputDecoration(
-                      labelText: 'State',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.state,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -424,9 +425,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _billingPostalCodeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Postal Code',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.postalCodeShort,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -434,9 +435,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _billingCountryController,
-                    decoration: const InputDecoration(
-                      labelText: 'Country',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.country,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -467,7 +468,7 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                         });
                       },
                     ),
-                    const Text('Same as billing'),
+                    Text(context.loc.sameAsBilling),
                   ],
                 ),
               ],
@@ -476,9 +477,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _shippingAddressController,
-              decoration: const InputDecoration(
-                labelText: 'Street Address',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.streetAddress,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 2,
               enabled: !_sameAsBilling,
@@ -490,9 +491,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _shippingCityController,
-                    decoration: const InputDecoration(
-                      labelText: 'City',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.city,
+                      border: const OutlineInputBorder(),
                     ),
                     enabled: !_sameAsBilling,
                   ),
@@ -501,9 +502,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _shippingStateController,
-                    decoration: const InputDecoration(
-                      labelText: 'State',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.state,
+                      border: const OutlineInputBorder(),
                     ),
                     enabled: !_sameAsBilling,
                   ),
@@ -517,9 +518,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _shippingPostalCodeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Postal Code',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.postalCodeShort,
+                      border: const OutlineInputBorder(),
                     ),
                     enabled: !_sameAsBilling,
                   ),
@@ -528,9 +529,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _shippingCountryController,
-                    decoration: const InputDecoration(
-                      labelText: 'Country',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.country,
+                      border: const OutlineInputBorder(),
                     ),
                     enabled: !_sameAsBilling,
                   ),
@@ -550,9 +551,9 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
 
             TextFormField(
               controller: _notesController,
-              decoration: const InputDecoration(
-                labelText: 'Internal Notes',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.notes,
+                border: const OutlineInputBorder(),
                 hintText: 'Add any additional notes about this customer',
               ),
               maxLines: 4,

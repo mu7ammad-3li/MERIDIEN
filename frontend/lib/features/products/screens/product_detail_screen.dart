@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/localization/localization_extension.dart';
 import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/product_model.dart';
@@ -119,14 +120,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Product Details')),
+        appBar: AppBar(title: Text(context.loc.productDetails)),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     if (_error != null || _product == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Product Details')),
+        appBar: AppBar(title: Text(context.loc.productDetails)),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +170,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product Details'),
+        title: Text(context.loc.productDetails),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_rounded),

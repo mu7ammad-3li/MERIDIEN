@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/localization/localization_extension.dart';
 import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/order_model.dart';
@@ -36,7 +37,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Details'),
+        title: Text(context.loc.orderDetails),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_rounded),
@@ -740,10 +741,10 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
             const SizedBox(height: 16),
             TextField(
               controller: reasonController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Rejection Reason (Optional)',
                 hintText: 'e.g., Damaged package, incorrect items',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               maxLines: 3,
             ),
@@ -796,10 +797,10 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
             const SizedBox(height: 16),
             TextField(
               controller: reasonController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Return Reason (Optional)',
                 hintText: 'e.g., Defective product, wrong item',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               maxLines: 3,
             ),

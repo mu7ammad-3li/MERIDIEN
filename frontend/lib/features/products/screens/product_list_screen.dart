@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../core/constants/app_colors.dart';
 import '../providers/product_provider.dart';
 import '../widgets/product_card.dart';
@@ -51,7 +52,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products'),
+        title: Text(context.loc.products),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list_rounded),
@@ -67,7 +68,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search products...',
+                hintText: context.loc.searchProducts,
                 prefixIcon: const Icon(Icons.search_rounded),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -198,9 +199,9 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
           children: [
             DropdownButtonFormField<String>(
               value: _selectedCategory,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Category',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               items: const [
                 DropdownMenuItem(value: null, child: Text('All')),

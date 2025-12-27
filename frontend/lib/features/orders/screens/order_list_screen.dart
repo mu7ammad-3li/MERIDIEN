@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../core/constants/app_colors.dart';
 import '../providers/order_provider.dart';
 import '../widgets/order_card.dart';
@@ -53,7 +54,7 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orders'),
+        title: Text(context.loc.orders),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list_rounded),
@@ -69,7 +70,7 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search orders...',
+                hintText: context.loc.searchOrders,
                 prefixIcon: const Icon(Icons.search_rounded),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -226,9 +227,9 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
           children: [
             DropdownButtonFormField<String>(
               value: _selectedStatus,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Order Status',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               items: const [
                 DropdownMenuItem(value: null, child: Text('All')),
@@ -247,9 +248,9 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: _selectedPaymentStatus,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Payment Status',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               items: const [
                 DropdownMenuItem(value: null, child: Text('All')),

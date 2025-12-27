@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/order_model.dart';
 import '../../customers/providers/customer_provider.dart';
@@ -57,7 +58,7 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Order'),
+        title: Text(context.loc.createOrder),
       ),
       body: Form(
         key: _formKey,
@@ -89,9 +90,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                           }
                           return DropdownButtonFormField<String>(
                             value: _selectedCustomerId,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Select Customer *',
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                             ),
                             items: customers.map((customer) {
                               return DropdownMenuItem(
@@ -179,17 +180,17 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _shippingLine1Controller,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Address Line 1',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
                         controller: _shippingLine2Controller,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Address Line 2',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -198,9 +199,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _shippingCityController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 labelText: 'City',
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
                               ),
                             ),
                           ),
@@ -208,9 +209,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _shippingStateController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 labelText: 'State/Province',
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
                               ),
                             ),
                           ),
@@ -222,9 +223,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _shippingPostalCodeController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 labelText: 'Postal Code',
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
                               ),
                             ),
                           ),
@@ -232,9 +233,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _shippingCountryController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 labelText: 'Country',
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
                               ),
                             ),
                           ),
@@ -252,9 +253,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                   padding: const EdgeInsets.all(16),
                   child: TextFormField(
                     controller: _notesController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Order Notes (Optional)',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Add any special instructions or notes',
                     ),
                     maxLines: 3,
@@ -425,9 +426,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                 children: [
                   DropdownButtonFormField<String>(
                     value: selectedProductId,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Product',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     items: products.map<DropdownMenuItem<String>>((product) {
                       return DropdownMenuItem<String>(
@@ -442,9 +443,9 @@ class _CreateOrderScreenState extends ConsumerState<CreateOrderScreen> {
                   const SizedBox(height: 16),
                   TextFormField(
                     initialValue: quantity.toString(),
-                    decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.quantity,
+                      border: const OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) {

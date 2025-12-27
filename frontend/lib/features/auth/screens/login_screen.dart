@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
+import '../../../core/localization/localization_extension.dart';
 import '../providers/auth_provider.dart';
 import '../models/auth_state.dart';
 
@@ -87,7 +87,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      AppStrings.appName,
+                      context.loc.appName,
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,
@@ -96,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      AppStrings.login,
+                      context.loc.login,
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
@@ -106,7 +106,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     TextFormField(
                       controller: _tenantSlugController,
                       decoration: InputDecoration(
-                        labelText: 'Tenant Slug',
+                        labelText: context.loc.tenantSlug,
                         hintText: 'your-company',
                         prefixIcon: const Icon(Icons.business_rounded),
                         border: OutlineInputBorder(
@@ -117,7 +117,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return AppStrings.fieldRequired;
+                          return context.loc.fieldRequired;
                         }
                         return null;
                       },
@@ -128,7 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: AppStrings.email,
+                        labelText: context.loc.email,
                         hintText: 'john@example.com',
                         prefixIcon: const Icon(Icons.email_rounded),
                         border: OutlineInputBorder(
@@ -140,10 +140,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return AppStrings.fieldRequired;
+                          return context.loc.fieldRequired;
                         }
                         if (!value.contains('@') || !value.contains('.')) {
-                          return AppStrings.invalidEmail;
+                          return context.loc.invalidEmail;
                         }
                         return null;
                       },
@@ -154,7 +154,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        labelText: AppStrings.password,
+                        labelText: context.loc.password,
                         hintText: '••••••••',
                         prefixIcon: const Icon(Icons.lock_rounded),
                         suffixIcon: IconButton(
@@ -179,7 +179,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       onFieldSubmitted: (_) => _handleLogin(),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return AppStrings.fieldRequired;
+                          return context.loc.fieldRequired;
                         }
                         if (value.length < 6) {
                           return 'Password must be at least 6 characters';
@@ -207,7 +207,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                             )
                           : Text(
-                              AppStrings.login,
+                              context.loc.login,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -225,7 +225,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           onPressed: isLoading
                               ? null
                               : () => context.push('/register'),
-                          child: const Text('Register'),
+                          child: Text(context.loc.register),
                         ),
                       ],
                     ),

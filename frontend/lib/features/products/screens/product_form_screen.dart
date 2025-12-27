@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/localization/localization_extension.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/product_model.dart';
@@ -208,7 +209,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditMode ? 'Edit Product' : 'New Product'),
+        title: Text(isEditMode ? context.loc.editProduct : context.loc.newProduct),
         actions: [
           if (_isLoading)
             const Center(
@@ -244,9 +245,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Product Name *',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -259,9 +260,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _skuController,
-              decoration: const InputDecoration(
-                labelText: 'SKU',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.sku,
+                border: const OutlineInputBorder(),
                 hintText: 'Product code or SKU',
               ),
             ),
@@ -269,9 +270,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.description,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 3,
             ),
@@ -279,10 +280,10 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               initialValue: _categoryId,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Category ID (Optional)',
                 hintText: 'Enter category UUID',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               onChanged: (value) => setState(() => _categoryId = value.trim().isEmpty ? null : value.trim()),
             ),
@@ -290,9 +291,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _barcodeController,
-              decoration: const InputDecoration(
-                labelText: 'Barcode',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: context.loc.barcode,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 24),
@@ -308,9 +309,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _sellingPriceController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Selling Price *',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 prefixText: '\$ ',
               ),
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -331,9 +332,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _costPriceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Cost Price',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.costPrice,
+                      border: const OutlineInputBorder(),
                       prefixText: '\$ ',
                     ),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -343,9 +344,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _discountPriceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Discount Price',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: context.loc.discountPriceShort,
+                      border: const OutlineInputBorder(),
                       prefixText: '\$ ',
                     ),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -377,9 +378,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                   Expanded(
                     child: TextFormField(
                       controller: _stockQuantityController,
-                      decoration: const InputDecoration(
-                        labelText: 'Stock Quantity',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: context.loc.stock,
+                        border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -389,9 +390,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                   Expanded(
                     child: TextFormField(
                       controller: _lowStockThresholdController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Low Stock Alert',
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -416,9 +417,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _weightController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Weight',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   ),
@@ -427,9 +428,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     value: _weightUnit,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Unit',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     items: const [
                       DropdownMenuItem(value: 'kg', child: Text('Kilogram')),
@@ -450,9 +451,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             TextFormField(
               controller: _notesController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Notes',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               maxLines: 3,
             ),
@@ -469,9 +470,9 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
             DropdownButtonFormField<String>(
               value: _status,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Status',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               items: const [
                 DropdownMenuItem(value: 'active', child: Text('Active')),
